@@ -58,13 +58,6 @@ flutter:
     - assets/images/canvas.png
     - assets/images/maps.png
     - assets/images/paint.png
-    #assets/images/*
-    - assets/images/action.png
-    - assets/images/batman.jpg
-    - assets/images/bezier.png
-    - assets/images/canvas.png
-    - assets/images/paint.png
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

@@ -1,6 +1,3 @@
-import 'package:canvas_paint/ui/canvas/path/path_line_page.dart';
-import 'package:canvas_paint/ui/canvas/path/path_operation_page.dart';
-import 'package:canvas_paint/ui/canvas/path/path_shape_page.dart';
 import 'package:canvas_paint/common/common_widget.dart';
 import 'package:canvas_paint/common/utils/color_utils.dart';
 import 'package:canvas_paint/ui/canvas/transform/clip_page.dart';
@@ -20,7 +17,7 @@ class CanvasTransformPage extends StatefulWidget {
 }
 
 class _CanvasTransformPageState extends State<CanvasTransformPage> with SingleTickerProviderStateMixin {
-  var tabs = ['canvas clip', 'canvas 几何变换', 'Matrix4 几何变换', '效果展示'];
+  var tabs = ['canvas clip', 'canvas 几何变换', 'Matrix4 三维变换'];
   late TabController _controller;
 
   @override
@@ -51,7 +48,6 @@ class _CanvasTransformPageState extends State<CanvasTransformPage> with SingleTi
           ClipPage(),
           TransformPage(),
           Matrix4Page(),
-          ClipPage(),
         ],
       ),
     );

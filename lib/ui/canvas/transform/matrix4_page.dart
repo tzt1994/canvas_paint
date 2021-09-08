@@ -43,39 +43,28 @@ class _Matrix4PageState extends State<Matrix4Page> with AutomaticKeepAliveClient
               '2.设置Matrix4的变换属性,例如Matrix.translate(dynamic x, [double y = 0.0, double z = 0.0])\n'
               '3.将Matrix4应用到canvas, canvas.transform(Float64List matrix4)', style: TextStyle(fontSize: 14.sp),),
           SizedBox(height: 20.w,),
-          Text('平移,', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),),
-          Text('translate(dynamic x, [double y=0.0,double z=0.0])\n'
+          Text('平移 \ntranslate(dynamic x, [double y=0.0,double z=0.0])', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),),
+          Text('通过Vector3,Vector4或x,y,z转换此矩阵\n'
               '下图左边是原位置，右图是平移size.width / 2的位置', style: TextStyle(fontSize: 14.sp),),
           CustomPaint(
             size: Size(double.infinity, 120.w),
             painter: _Matrix4Painter(image: _image),
           ),
           SizedBox(height: 20.w,),
-          Text('旋转 \ncanvas.rotate(double radians)', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),),
-          Text('radians:旋转角度的弧度值，正值顺时针，负值逆时针\n'
-              '旋转的中心点默认是左上角(0,0)原点，可以通过canvas.translate()改变中心点\n'
-              '下图表示是120度的效果', style: TextStyle(fontSize: 14.sp),),
+          Text('旋转 \ncanvas.rotateXXX()', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),),
+          Text('rotate系列方法旋转画布\n'
+              '下图表示是x,y,z轴各旋转120度的效果', style: TextStyle(fontSize: 14.sp),),
           CustomPaint(
             size: Size(double.infinity, 120.w),
             painter: _Matrix4Painter(image: _image, transformType: TransformType.rotate),
           ),
           SizedBox(height: 20.w,),
-          Text('缩放 \ncanvas. scale(double sx, [double? sy])', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),),
-          Text('sx,sy:水平和竖直方向的缩放只\n'
-              'sy未指定的话，sx将用于水平和竖直两个方向\n'
-              '缩放的中心点默认是左上角(0,0)原点，可以通过canvas.translate()改变中心点\n'
-              '下图是缩放为0.5的效果', style: TextStyle(fontSize: 14.sp),),
+          Text('缩放 \ncanvas.scale(dynamic x, [double? y, double? z])', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),),
+          Text('通过 [Vector3]、[Vector4] 或 x,y,z 缩放此矩阵\n'
+              '下图是缩放为0.7的效果', style: TextStyle(fontSize: 14.sp),),
           CustomPaint(
             size: Size(double.infinity, 120.w),
             painter: _Matrix4Painter(image: _image, transformType: TransformType.scale),
-          ),
-          SizedBox(height: 20.w,),
-          Text('错切 \ncanvas.skew(double sx, double sy)', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),),
-          Text('sx,sy:沿顺指针方向在运行单位上水平或竖直偏斜\n'
-              '下图为sx,sy为0.3的效果', style: TextStyle(fontSize: 14.sp),),
-          CustomPaint(
-            size: Size(double.infinity, 120.w),
-            painter: _Matrix4Painter(image: _image, transformType: TransformType.skew),
           ),
         ],
       ),
@@ -134,8 +123,8 @@ class _Matrix4Painter extends CustomPainter {
           final rect2 = rect.translate(size.width / 2, 0);
           final rect3 = Rect.fromCenter(center: Offset(0, 0), width: rect.width, height: rect.height);
           canvas.saveLayer(Rect.fromLTRB(0, 0, size.width, size.height), _layerPaint);
-          canvas.translate(rect2.center.dx, rect2.center.dy);
           final Matrix4 matrix4 = Matrix4.identity();
+          matrix4.translate(rect2.center.dx, rect2.center.dy);
           matrix4.rotateX(120.toRadian);
           matrix4.rotateY(120.toRadian);
           matrix4.rotateZ(120.toRadian);
@@ -157,8 +146,10 @@ class _Matrix4Painter extends CustomPainter {
           final rect2 = rect.translate(size.width / 2, 0);
           final rect3 = Rect.fromCenter(center: Offset(0, 0), width: rect.width, height: rect.height);
           canvas.saveLayer(Rect.fromLTRB(0, 0, size.width, size.height), _layerPaint);
-          canvas.translate(rect2.center.dx, rect2.center.dy);
-          canvas.scale(0.5);
+          final Matrix4 matrix4 = Matrix4.identity();
+          matrix4.translate(rect2.center.dx, rect2.center.dy);
+          matrix4.scale(0.7, 0.7, 0.5);
+          canvas.transform(matrix4.storage);
           canvas.drawImageRect(
               image!,
               Rect.fromLTRB(0, 0, image!.width.toDouble(), image!.height.toDouble()),
@@ -166,26 +157,6 @@ class _Matrix4Painter extends CustomPainter {
           _linePaint.color = Colors.red;
           canvas.drawRect(rect3, _linePaint);
           canvas.restore();
-          break;
-        case TransformType.skew:
-          final rect = Rect.fromLTRB(30, 10, size.height + 10, size.height - 10);
-          canvas.drawImageRect(image!, Rect.fromLTRB(0, 0, image!.width.toDouble(), image!.height.toDouble()), rect, _layerPaint);
-          _linePaint.color = Colors.white;
-          canvas.drawRect(rect, _linePaint);
-          /// 错切画布
-          final rect2 = rect.translate(size.width / 2, 0);
-          final rect3 = Rect.fromCenter(center: Offset(0, 0), width: rect.width, height: rect.height);
-          canvas.saveLayer(Rect.fromLTRB(0, 0, size.width, size.height), _layerPaint);
-          canvas.translate(rect2.center.dx, rect2.center.dy);
-          canvas.skew(0.3, 0.3);
-          canvas.drawImageRect(
-              image!,
-              Rect.fromLTRB(0, 0, image!.width.toDouble(), image!.height.toDouble()),
-              rect3, _layerPaint);
-          _linePaint.color = Colors.red;
-          canvas.drawRect(rect3, _linePaint);
-          canvas.restore();
-
           break;
       }
     }
@@ -197,5 +168,5 @@ class _Matrix4Painter extends CustomPainter {
 }
 
 enum TransformType {
-  translate, rotate, scale, skew
+  translate, rotate, scale
 }

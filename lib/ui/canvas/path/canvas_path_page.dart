@@ -31,7 +31,7 @@ class _CanvasPathPageState extends State<CanvasPathPage> with SingleTickerProvid
     return Scaffold(
       appBar: cpAppBar(
         context,
-        title: 'Canvas drawXXX()',
+        title: 'Canvas drawPath',
         bottom: TabBar(
           controller: _controller,
           tabs: tabs.map((e) => Tab(text: e)).toList(),
