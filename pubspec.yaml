@@ -53,11 +53,27 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/action.png
+    - assets/images/background.png
+    - assets/images/background_s.png
     - assets/images/batman.jpg
     - assets/images/bezier.png
     - assets/images/canvas.png
+    - assets/images/choice.png
+    - assets/images/choice_s.png
     - assets/images/maps.png
     - assets/images/paint.png
+    - assets/images/pen.png
+    - assets/images/pen_s.png
+    - assets/images/recovery.png
+    - assets/images/recovery_s.png
+    - assets/images/revoke.png
+    - assets/images/revoke_s.png
+    - assets/images/rubber.png
+    - assets/images/rubber_s.png
+    - assets/images/screen_shot.png
+    - assets/images/screen_shot_s.png
+    - assets/images/shape.png
+    - assets/images/shape_s.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

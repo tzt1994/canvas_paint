@@ -5,6 +5,7 @@ import 'package:canvas_paint/ui/canvas/canvas_page.dart';
 import 'package:canvas_paint/ui/paint/paint_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'common/utils/color_utils.dart';
@@ -28,6 +29,7 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     _controller = TabController(length: titles.length, vsync: this);
   }
   

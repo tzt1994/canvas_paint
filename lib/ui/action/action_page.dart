@@ -1,5 +1,6 @@
 import 'package:canvas_paint/sliver/ceiling_top_custom.dart';
 import 'package:canvas_paint/sliver/ceiling_top_nested.dart';
+import 'package:canvas_paint/ui/action/draw_board/draw_board.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,35 +24,37 @@ class ActionPageState extends State<ActionPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(15.w, 10.w, 15.w, ScreenUtil().bottomBarHeight),
       physics: AlwaysScrollableScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SizedBox(height: 15.h,),
           ElevatedButton(
             onPressed: () {
               Navigator.push(context, CupertinoPageRoute(builder: (_) => CeilingTopNestedPage()));
             },
             child: Text('吸顶效果1', textAlign: TextAlign.center,),
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 10.w,),
           ElevatedButton(
             onPressed: () {
               Navigator.push(context, CupertinoPageRoute(builder: (_) => CeilingTopCustomPage()));
             },
             child: Text('吸顶效果2', textAlign: TextAlign.center,),
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 10.w,),
           ElevatedButton(
             onPressed: () {
               Navigator.push(context, CupertinoPageRoute(builder: (_) => BarChartScroll()));
             },
             child: Text('柱状图', textAlign: TextAlign.center,),
           ),
+          SizedBox(height: 10.w,),
           ElevatedButton(
             onPressed: () => _testDialog(),
             child: Text('测试弹窗', textAlign: TextAlign.center,),
           ),
+          SizedBox(height: 10.w,),
           ElevatedButton(
             onPressed: () => showModalBottomSheet(context: context, builder: (_) => Container(
               height: MediaQuery.of(context).size.height / 8 * 7,
@@ -63,6 +66,14 @@ class ActionPageState extends State<ActionPage> {
             )),
             child: Text('底部弹窗', textAlign: TextAlign.center,),
           ),
+          SizedBox(height: 10.w,),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(context, CupertinoPageRoute(builder: (_) => DrawBoardPage()));
+            },
+            child: Text('画板', textAlign: TextAlign.center,),
+          ),
+          SizedBox(height: 10.w,),
           ElevatedButton(
             onPressed: () {
               Navigator.push(context, CupertinoPageRoute(builder: (_) => ListWheelPage()));
@@ -72,7 +83,7 @@ class ActionPageState extends State<ActionPage> {
           Container(
             width: double.infinity,
             color: Colors.blue,
-            margin: EdgeInsets.only(bottom: 20.w),
+            margin: EdgeInsets.only(top: 10.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
